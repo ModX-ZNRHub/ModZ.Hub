@@ -3,13 +3,13 @@ local UserInputService = game:GetService("UserInputService")
 
 -- DATA
 local Scripts = {
-    {Name = {"Infinite Yield","IY"}, url = "https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"},
-    {Name = {"Fly","Bay"}, url = "https://raw.githubusercontent.com/XNEOFF/FlyGui/main/Fly.lua"},
+    {Name = {"Fly","flyModZ"}, url = "https://gist.githubusercontent.com/ModX-ZNRHub/a851ab31b1d8b1235b92f6fa3aeb230c/raw/0657acfbdd954f3c79e5dcd31ecf65961eb0a7bc/gistfile1.txt"},
+    {Name = {""}, url = ""},
     {Name = {"Dex","Explorer"}, url = "https://raw.githubusercontent.com/peyton2465/Dex/master/out.lua"},
-    {Name = {"Remote Spy","RSpy"}, url = "https://raw.githubusercontent.com/78n/SimpleSpy/main/SimpleSpySource.lua"},
-    {Name = {"Keyboard","Key"}, url = "https://raw.githubusercontent.com/advcreper/RScripts/main/Keyboard.lua"},
-    {Name = {"Speed","Run"}, url = ""},
-    {Name = {"Jump","High"}, url = ""}
+    {Name = {"",""}, url = "https://raw.githubusercontent.com/78n/SimpleSpy/main/SimpleSpySource.lua"},
+    {Name = {"",""}, url = ""},
+    {Name = {"",""}, url = ""},
+    {Name = {"",""}, url = ""}
 }
 
 -- GUI
