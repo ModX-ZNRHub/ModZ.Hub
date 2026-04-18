@@ -1,0 +1,199 @@
+local TweenService = game:GetService("TweenService")
+local UserInputService = game:GetService("UserInputService")
+
+-- DATA
+local Scripts = {
+    {Name = {"Infinite Yield","IY"}, url = "https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"},
+    {Name = {"Fly","Bay"}, url = "https://raw.githubusercontent.com/XNEOFF/FlyGui/main/Fly.lua"},
+    {Name = {"Dex","Explorer"}, url = "https://raw.githubusercontent.com/peyton2465/Dex/master/out.lua"},
+    {Name = {"Remote Spy","RSpy"}, url = "https://raw.githubusercontent.com/78n/SimpleSpy/main/SimpleSpySource.lua"},
+    {Name = {"Keyboard","Key"}, url = "https://raw.githubusercontent.com/advcreper/RScripts/main/Keyboard.lua"},
+    {Name = {"Speed","Run"}, url = ""},
+    {Name = {"Jump","High"}, url = ""}
+}
+
+-- GUI
+local gui = Instance.new("ScreenGui", game.CoreGui)
+gui.ResetOnSpawn = false
+
+local main = Instance.new("Frame", gui)
+main.Size = UDim2.new(0, 260, 0, 32)
+main.Position = UDim2.new(0.35, 0, 0.4, 0)
+main.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+main.BackgroundTransparency = 0.4
+main.Active = true
+main.BorderSizePixel = 0
+
+local stroke = Instance.new("UIStroke", main)
+stroke.Color = Color3.new(1, 1, 1)
+stroke.Thickness = 1
+
+-- input (Minecraft Style)
+local box = Instance.new("TextBox", main)
+box.Size = UDim2.new(1, -35, 1, 0)
+box.Position = UDim2.new(0, 8, 0, 0)
+box.BackgroundTransparency = 1
+box.TextColor3 = Color3.new(1, 1, 1)
+box.PlaceholderText = "Enter the order..."
+box.PlaceholderColor3 = Color3.fromRGB(150, 150, 150)
+box.Text = ""
+box.TextXAlignment = Enum.TextXAlignment.Left
+box.Font = Enum.Font.Arcade
+box.TextSize = 16
+
+-- Hiệu ứng Loading dấu chấm
+task.spawn(function()
+    while true do
+        box.PlaceholderText = "Enter the order."
+        task.wait(0.5)
+        box.PlaceholderText = "Enter the order.."
+        task.wait(0.5)
+        box.PlaceholderText = "Enter the order..."
+        task.wait(0.5)
+    end
+end)
+
+-- Chỉ xóa 1 lần khi bắt đầu nhấn vào
+box.Focused:Connect(function()
+    box.Text = ""
+end)
+
+-- toggle (KÉO + GẬP)
+local toggle = Instance.new("TextButton", main)
+toggle.Size = UDim2.new(0, 25, 1, 0)
+toggle.Position = UDim2.new(1, -25, 0, 0)
+toggle.Text = "-"
+toggle.BackgroundTransparency = 1
+toggle.TextColor3 = Color3.new(1, 1, 1)
+toggle.Font = Enum.Font.Arcade
+toggle.TextSize = 20
+
+-- list container (ScrollingFrame - Max 5 items)
+local list = Instance.new("ScrollingFrame", main)
+list.Position = UDim2.new(0, 0, 1, 0)
+list.Size = UDim2.new(1, 0, 0, 0)
+list.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+list.BackgroundTransparency = 0.4
+list.BorderSizePixel = 0
+list.ScrollBarThickness = 2
+list.ScrollBarImageColor3 = Color3.new(1, 1, 1)
+list.CanvasSize = UDim2.new(0, 0, 0, 0)
+list.ClipsDescendants = true
+list.AutomaticCanvasSize = Enum.AutomaticSize.Y
+
+local listLayout = Instance.new("UIListLayout", list)
+listLayout.Padding = UDim.new(0, 2)
+
+-- ==========================================
+-- LOGIC KÉO (NGÓN ĐẦU TIÊN + KHÓA CAMERA)
+-- ==========================================
+local dragging = false
+local dragStart, startPos, activeTouch
+
+toggle.InputBegan:Connect(function(input)
+    if not dragging and (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) then
+        dragging = true
+        toggle.Modal = true 
+        activeTouch = input
+        dragStart = input.Position
+        startPos = main.Position
+    end
+end)
+
+UserInputService.InputChanged:Connect(function(input)
+    if dragging and input == activeTouch then
+        local delta = input.Position - dragStart
+        main.Position = UDim2.new(
+            startPos.X.Scale, 
+            startPos.X.Offset + delta.X, 
+            startPos.Y.Scale, 
+            startPos.Y.Offset + delta.Y
+        )
+    end
+end)
+
+UserInputService.InputEnded:Connect(function(input)
+    if input == activeTouch then
+        dragging = false
+        toggle.Modal = false
+        activeTouch = nil
+    end
+end)
+
+-- ==========================================
+-- HÀM XỬ LÝ
+-- ==========================================
+local function tween(o, t, p)
+    TweenService:Create(o, TweenInfo.new(t, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), p):Play()
+end
+
+local function fuzzy(a, b)
+    a, b = a:lower(), b:lower()
+    local j = 1
+    for i = 1, #a do
+        if a:sub(i, i) == b:sub(j, j) then j += 1 end
+        if j > #b then return true end
+    end
+    return false
+end
+
+local collapsed = false
+
+local function render(txt)
+    for _, c in pairs(list:GetChildren()) do
+        if c:IsA("TextButton") then c:Destroy() end
+    end
+
+    local count = 0
+    for _, v in pairs(Scripts) do
+        local show = false
+        if txt == "" then show = true
+        else
+            for _, n in pairs(v.Name) do
+                if fuzzy(n, txt) then show = true break end
+            end
+        end
+
+        if show then
+            count += 1
+            local b = Instance.new("TextButton", list)
+            b.Size = UDim2.new(1, -5, 0, 26) 
+            b.Text = "> " .. v.Name[1]
+            b.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+            b.BackgroundTransparency = 0.2
+            b.TextColor3 = Color3.new(1, 1, 1)
+            b.Font = Enum.Font.Arcade
+            b.TextSize = 15
+            b.TextXAlignment = Enum.TextXAlignment.Left
+            b.BorderSizePixel = 0
+
+            b.MouseButton1Click:Connect(function()
+                box.Text = "" 
+                collapsed = true
+                toggle.Text = "+"
+                render("")
+                pcall(function() loadstring(game:HttpGet(v.url))() end)
+            end)
+        end
+    end
+
+    local maxHeight = math.min(count, 5) * 28
+    local targetSize = (collapsed or count == 0) and 0 or maxHeight
+    tween(list, 0.2, {Size = UDim2.new(1, 0, 0, targetSize)})
+end
+
+box:GetPropertyChangedSignal("Text"):Connect(function()
+    if collapsed and box.Text ~= "" then 
+        collapsed = false 
+        toggle.Text = "-"
+    end
+    render(box.Text)
+end)
+
+toggle.MouseButton1Click:Connect(function()
+    collapsed = not collapsed
+    toggle.Text = collapsed and "+" or "-"
+    render(box.Text)
+end)
+
+render("")
