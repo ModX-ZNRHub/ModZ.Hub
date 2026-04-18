@@ -8,7 +8,7 @@ local UserInputService = game:GetService("UserInputService")
 local Scripts = {
     {Name = {"Fly_V1/f1","f1"}, url = "https://gist.githubusercontent.com/ModX-ZNRHub/144e96df65b8f628159b4c75fbf5b008/raw/12827002d22ed6b6f042264b1c0be7ad5e52a2a7/Fly_V2"},
     {Name = {"Fly_V2/f2","f2"}, url = "https://gist.githubusercontent.com/ModX-ZNRHub/62dc9c7c217a4757b153a1f872fdf5b9/raw/148cc2ce536d05de0dcdf54e5d828571a8020dd4/Fly_V3"},
-    {Name = {"Fly_V3/f3","f3"}, url = "https://gist.githubusercontent.com/ModX-ZNRHub/09e2bfc20915e85d5291a8dbcfc936a6/raw/8513b28c83add6f18b8b9b681daf030d7a9ac76e/Fly_V4"},
+    {Name = {"Fly_V3/f3","f3"}, url = "https://gist.githubusercontent.com/ModX-ZNRHub/08edc8ac25714db4f6294f3cbb8c3172/raw/a4dc8ca54fe8724e090d8b25e375804da8d5be2a/gistfile1.txt"},
     {Name = {"Dex/Explorer","Explorer"}, url = "https://raw.githubusercontent.com/peyton2465/Dex/master/out.lua"},
     {Name = {""}, url = ""},
     {Name = {""}, url = ""},
