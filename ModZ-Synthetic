@@ -11,7 +11,7 @@ local Scripts = {
     {Name = {"Fly_V3/f3","f3"}, url = "https://gist.githubusercontent.com/ModX-ZNRHub/08edc8ac25714db4f6294f3cbb8c3172/raw/a4dc8ca54fe8724e090d8b25e375804da8d5be2a/gistfile1.txt"},
     {Name = {"Dex/Explorer","Explorer"}, url = "https://raw.githubusercontent.com/peyton2465/Dex/master/out.lua"},
     {Name = {"speed.bypass/sbs","sbs"}, url = "https://gist.githubusercontent.com/ModX-ZNRHub/4143842906d38bc67c0bf9874b1de7e2/raw/8c9cb754588916685d932c2d46fdd40dea46e685/gistfile1.txt"},
-    {Name = {""}, url = ""},
+    {Name = {"serverhop"}, url = "https://gist.githubusercontent.com/ModX-ZNRHub/9e6dbc922678393771fc76e7178d9104/raw/2147dfc0006478ac5de58e0db071e0ef18a9180e/gistfile1.txt"},
     {Name = {""}, url = ""},
     {Name = {""}, url = ""},
     {Name = {""}, url = ""},
