@@ -1,5 +1,3 @@
---[[thông báo]]
-loadstring(game:HttpGet("https://raw.githubusercontent.com/ModX-ZNRHub/Inf_jajsjbeekisbekehrnjdbensshwmwkj828277171617717161662/main/Th%C3%B4ng%20b%C3%A1o"))()
 
 local TweenService = game:GetService("TweenService")
 local UserInputService = game:GetService("UserInputService")
