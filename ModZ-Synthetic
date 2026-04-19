@@ -1,4 +1,8 @@
 
+
+--[[thongbao]]
+loadstring(game:HttpGet("https://gist.githubusercontent.com/ModX-ZNRHub/5464c10bcdf1049bfaf9feb79fe970fa/raw/4b1a0c847382bf89f1d0de1fcaecb753abab37c7/gistfile1.txt"))()
+
 local TweenService = game:GetService("TweenService")
 local UserInputService = game:GetService("UserInputService")
 
